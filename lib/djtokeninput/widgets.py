@@ -44,7 +44,7 @@ class TokenWidget(forms.TextInput):
     return value.replace(" ", "-")
 
   def render(self, name, value, attrs=None):
-    flat_value = ",".join(map(unicode, value or []))
+    flat_value = ",".join(value or [])
     settings = copy.copy(self.settings)
 
     url_name = getattr(self, "search_url", "djtokeninput_search")
@@ -56,7 +56,7 @@ class TokenWidget(forms.TextInput):
 
     if value is not None:
       settings["prePopulate"] = [
-        {"id": pk, "name": unicode(self.choices.queryset.get(pk=pk))}
+        {"id": pk, "name": self.choices.queryset.get(pk=pk)}
         for pk in value
       ]
 
